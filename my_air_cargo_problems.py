@@ -61,6 +61,19 @@ class AirCargoProblem(Problem):
             """
             loads = []
             # TODO create all load ground actions from the domain Load action
+        
+            for airport in self.airports:
+                for cargo in self.cargos:
+                    for plane in self.planes:
+                        precond_pos = [
+                            expr("At({},{})".format(cargo, airport)),
+                            expr("At({},{})".format(plane, airport))
+                        ]
+                        precond_neg = []
+                        effect_add = [expr("In({}, {})".format(cargo, plane))]
+                        effect_rem = [expr("At({}, {})".format(cargo, airport))]
+                        load_action = Action(expr("Load({}, {}, {})".format(cargo, plane, airport)), [precond_pos, precond_neg], [effect_add, effect_rem])
+                        loads.append(load_action)
             return loads
 
         def unload_actions():
