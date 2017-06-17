@@ -139,7 +139,7 @@ class AirCargoProblem(Problem):
             for clause in action.precond_pos:
                 if clause not in kb.clauses:
                     is_possible = False
-            for clause in action.precond_neg: 
+            for clause in action.precond_neg:
                 if clause in kb.clauses:
                     is_possible = False
             if is_possible:
@@ -217,6 +217,11 @@ class AirCargoProblem(Problem):
         """
         # TODO implement (see Russell-Norvig Ed-3 10.2.3  or Russell-Norvig Ed-2 11.2)
         count = 0
+        kb = PropKB()
+        kb.tell(decode_state(node.state, self.state_map).pos_sentence())
+        for clause in self.goal:
+            if clause not in kb.clauses:
+                count += 1
         return count
 
 
