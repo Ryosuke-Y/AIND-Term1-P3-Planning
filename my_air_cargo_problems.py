@@ -146,7 +146,6 @@ class AirCargoProblem(Problem):
                 possible_actions.append(action)
 
         return possible_actions
-        return possible_actions
 
     def result(self, state: str, action: Action):
         """ Return the state that results from executing the given
